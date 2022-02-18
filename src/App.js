@@ -5,7 +5,6 @@ import About from './pages/About';
 import Home from './pages/Home';
 import NotFound from './pages/NotFound';
 function App() {
-  console.log(process.env.REACT_APP_GITHUB_TOKEN);
   return (
     <>
       <div className="flex flex-col justify-between h-screen">
