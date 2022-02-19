@@ -9,6 +9,7 @@ export const GithubProvider = ({ children }) => {
   const initialState = {
     users: [],
     user: {},
+    repos: [],
     loading: false,
   };
   const [state, dispatch] = useReducer(githubReducer, initialState);
@@ -32,6 +33,15 @@ export const GithubProvider = ({ children }) => {
         payload: data,
       });
     }
+  };
+
+  const getUserRepo = async (text) => {
+    const res = await fetch(`${GITHUB_URL}/users/${text}/repos`);
+    const data = await res.json();
+    dispatch({
+      type: 'SET_REPOS',
+      payload: data,
+    });
   };
   const searchUsers = async (text) => {
     setLoading();
@@ -60,9 +70,11 @@ export const GithubProvider = ({ children }) => {
         users: state.users,
         loading: state.loading,
         user: state.user,
+        repos: state.repos,
         searchUsers,
         clearUsers,
         getUser,
+        getUserRepo,
       }}
     >
       {children}
