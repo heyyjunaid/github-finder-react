@@ -6,17 +6,21 @@ import Spinner from '../components/layout/Spinner';
 import { FaCodepen, FaStore, FaUserFriends, FaUsers } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
 import RepoList from '../components/repos/RepoList';
-
+import { getUser, getUserRepo } from '../context/github/GithubActions';
 const User = () => {
-  const { user, loading, getUser, getUserRepo, repos } =
-    useContext(GithubContext);
+  const { user, loading, repos, dispatch } = useContext(GithubContext);
 
   const params = useParams();
 
   useEffect(() => {
-    getUser(params.login);
-    getUserRepo(params.login);
-    console.log(repos);
+    dispatch('SET_LOADING');
+    const getUserData = async () => {
+      const userData = await getUser(params.login);
+      dispatch({ type: 'GET_USER', payload: userData });
+      const userRepoData = await getUserRepo(params.login);
+      dispatch({ type: 'SET_REPOS', payload: userRepoData });
+    };
+    getUserData();
   }, []);
 
   const {

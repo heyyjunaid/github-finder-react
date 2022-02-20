@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
+import { getUser } from '../../context/github/GithubActions';
 const UserItem = ({ user: { login, avatar_url } }) => {
   return (
     <div className="card shadow-md compact side bg-base-100">
