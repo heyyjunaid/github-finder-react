@@ -36,7 +36,9 @@ export const GithubProvider = ({ children }) => {
   };
 
   const getUserRepo = async (text) => {
-    const res = await fetch(`${GITHUB_URL}/users/${text}/repos`);
+    const res = await fetch(
+      `${GITHUB_URL}/users/${text}/repos?per_page=20&sort=created:asc`
+    );
     const data = await res.json();
     dispatch({
       type: 'SET_REPOS',
@@ -67,11 +69,9 @@ export const GithubProvider = ({ children }) => {
   return (
     <GithubContext.Provider
       value={{
-        users: state.users,
-        loading: state.loading,
-        user: state.user,
-        repos: state.repos,
+        ...state,
         searchUsers,
+        dispatch,
         clearUsers,
         getUser,
         getUserRepo,
