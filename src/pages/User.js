@@ -13,7 +13,7 @@ const User = () => {
   const params = useParams();
 
   useEffect(() => {
-    dispatch({'SET_LOADING'});
+    dispatch({type:'SET_LOADING'});
     const getUserData = async () => {
       const userData = await getUser(params.login);
       dispatch({ type: 'GET_USER', payload: userData });
