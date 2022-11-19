@@ -1,24 +1,24 @@
-import React from 'react';
-import { useEffect, useContext } from 'react';
-import GithubContext from '../context/github/GithubContext';
-import { useParams } from 'react-router-dom';
-import Spinner from '../components/layout/Spinner';
-import { FaCodepen, FaStore, FaUserFriends, FaUsers } from 'react-icons/fa';
-import { Link } from 'react-router-dom';
-import RepoList from '../components/repos/RepoList';
-import { getUser, getUserRepo } from '../context/github/GithubActions';
+import React from "react";
+import { useEffect, useContext } from "react";
+import GithubContext from "../context/github/GithubContext";
+import { useParams } from "react-router-dom";
+import Spinner from "../components/layout/Spinner";
+import { FaCodepen, FaStore, FaUserFriends, FaUsers } from "react-icons/fa";
+import { Link } from "react-router-dom";
+import RepoList from "../components/repos/RepoList";
+import { getUser, getUserRepo } from "../context/github/GithubActions";
 const User = () => {
   const { user, loading, repos, dispatch } = useContext(GithubContext);
 
   const params = useParams();
 
   useEffect(() => {
-    dispatch({type:'SET_LOADING'});
+    dispatch({ type: "SET_LOADING" });
     const getUserData = async () => {
       const userData = await getUser(params.login);
-      dispatch({ type: 'GET_USER', payload: userData });
+      dispatch({ type: "GET_USER", payload: userData });
       const userRepoData = await getUserRepo(params.login);
-      dispatch({ type: 'SET_REPOS', payload: userRepoData });
+      dispatch({ type: "SET_REPOS", payload: userRepoData });
     };
     getUserData();
   }, []);
@@ -99,11 +99,7 @@ const User = () => {
                 <div className="stat">
                   <div className="stat-title text-md">Website</div>
                   <div className="text-lg stat-value">
-                    <a
-                      href={`https://${blog}`}
-                      target="_blank"
-                      rel="noreferrer"
-                    >
+                    <a href={`${blog}`} target="_blank" rel="noreferrer">
                       {blog}
                     </a>
                   </div>
