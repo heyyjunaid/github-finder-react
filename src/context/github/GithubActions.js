@@ -4,6 +4,7 @@ export const searchUsers = async (text) => {
   const params = new URLSearchParams({
     q: text,
   });
+
   const res = await fetch(`${GITHUB_URL}/search/users?${params}`);
   const { items } = await res.json();
   return items;
@@ -13,7 +14,7 @@ export const searchUsers = async (text) => {
 export const getUser = async (login) => {
   const res = await fetch(`${GITHUB_URL}/users/${login}`);
   if (res.status === 404) {
-    window.location = '/notfound';
+    window.location = "/notfound";
   } else {
     const data = await res.json();
     return data;
