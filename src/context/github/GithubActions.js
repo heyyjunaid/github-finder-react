@@ -5,7 +5,11 @@ export const searchUsers = async (text) => {
     q: text,
   });
 
-  const res = await fetch(`${GITHUB_URL}/search/users?${params}`);
+  const res = await fetch(`${GITHUB_URL}/search/users?${params}`, {
+    headers: {
+      Authorization: `token ${GITHUB_TOKEN}`,
+    },
+  });
   const { items } = await res.json();
   return items;
 };
@@ -24,7 +28,12 @@ export const getUser = async (login) => {
 // User's Repos details
 export const getUserRepo = async (text) => {
   const res = await fetch(
-    `${GITHUB_URL}/users/${text}/repos?per_page=20&sort=created:asc`
+    `${GITHUB_URL}/users/${text}/repos?per_page=20&sort=created:asc`,
+    {
+      headers: {
+        Authorization: `token ${GITHUB_TOKEN}`,
+      },
+    }
   );
   const data = await res.json();
   return data;
