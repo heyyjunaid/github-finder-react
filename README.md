@@ -20,4 +20,4 @@ GitHub Finder App is a web application built with React and Tailwind CSS that al
 1. Clone the repository:
 
    ```bash
-   git clone https://github.com/your-username/github-finder-app.git
+   git clone https://github.com/junaidqureshi05/github-finder-app.git
