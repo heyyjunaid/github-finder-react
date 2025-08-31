@@ -1,7 +1,12 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
 .custom-card-image .card.image-full:before {
   border-radius: 0.5rem;
   opacity: 0.45;
+}
+.h-screen {
+  height: auto !important; /* or unset */
+  min-height: 100vh;
 }
