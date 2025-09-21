@@ -1,5 +1,4 @@
 import { useEffect, useContext } from "react";
-import GithubContext from "../context/github/GithubContext";
 import { useParams } from "react-router-dom";
 import Spinner from "../components/layout/Spinner";
 import {
@@ -12,18 +11,25 @@ import {
 import { Link } from "react-router-dom";
 import RepoList from "../components/repos/RepoList";
 import { getUser, getUserRepo } from "../context/github/GithubActions";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  setLoading,
+  setUserData,
+  setUserRepoData,
+} from "../Store/modules/Github";
 const User = () => {
-  const { user, loading, repos, dispatch } = useContext(GithubContext);
-
+  const { user, loading, repos } = useSelector((state) => state?.github);
+  const dispatch = useDispatch();
   const params = useParams();
 
   useEffect(() => {
-    dispatch({ type: "SET_LOADING" });
+    dispatch(setLoading(true));
     const getUserData = async () => {
       const userData = await getUser(params.login);
-      dispatch({ type: "GET_USER", payload: userData });
+      dispatch(setUserData(userData));
       const userRepoData = await getUserRepo(params.login);
-      dispatch({ type: "SET_REPOS", payload: userRepoData });
+      dispatch(setUserRepoData(userRepoData));
+      dispatch(setLoading(false));
     };
     getUserData();
   }, []);

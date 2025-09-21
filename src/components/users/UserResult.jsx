@@ -1,9 +1,8 @@
 import Spinner from "../layout/Spinner";
 import UserItem from "./UserItem";
-import { useContext } from "react";
-import GithubContext from "../../context/github/GithubContext";
+import { useSelector } from "react-redux";
 const UserResult = () => {
-  const { users, loading } = useContext(GithubContext);
+  const { users, loading } = useSelector((state) => state?.github);
 
   if (!loading) {
     return (

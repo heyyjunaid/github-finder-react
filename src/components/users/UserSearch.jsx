@@ -1,29 +1,37 @@
-import GithubContext from "../../context/github/GithubContext";
-import AlertContext from "../../context/alert/AlertContext";
 import { searchUsers } from "../../context/github/GithubActions";
-import { useContext, useState } from "react";
+import { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  setLoading,
+  setSearchText,
+  setUsers,
+} from "../../Store/modules/Github";
+import { setAlert } from "../../Store/modules/Alert";
 
 const UserSearch = () => {
-  const [text, setText] = useState("");
-  const { users, dispatch } = useContext(GithubContext);
-  const { setAlert } = useContext(AlertContext);
-
+  const [text, setText] = useState(
+    useSelector((state) => state?.github?.searchText || "")
+  );
+  const users = useSelector((state) => state?.github?.users || []);
+  const dispatch = useDispatch();
   const handleChange = (e) => {
     setText(e.target.value);
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    console.log("3###");
     if (text.trim() === "") {
-      setAlert("Please enter something", "error");
+      console.log("came here ");
+      dispatch(setAlert({ msg: "Please enter something", type: "error" }));
+      setTimeout(() => {
+        dispatch(setAlert({ msg: "", type: "" }));
+      }, 1000);
     } else {
-      dispatch({ type: "SET_LOADING" });
+      dispatch(setLoading(true));
       const users = await searchUsers(text);
-      dispatch({
-        type: "GET_USERS",
-        payload: users,
-      });
-      setText("");
+      dispatch(setSearchText(text));
+      dispatch(setUsers(users));
     }
   };
 
@@ -51,7 +59,9 @@ const UserSearch = () => {
       {users.length > 0 && (
         <button
           className="btn btn-outline btn-error btn-lg shadow hover:scale-105 transition-transform"
-          onClick={() => dispatch({ type: "CLEAR_USERS" })}
+          onClick={() => {
+            dispatch(setUsers([]));
+          }}
         >
           Clear
         </button>

@@ -10,4 +10,7 @@ export default defineConfig({
       include: ["**/*.js", "**/*.jsx", "**/*.ts", "**/*.tsx"],
     }),
   ],
+  optimizeDeps: {
+    include: ["@reduxjs/toolkit"],
+  },
 });
