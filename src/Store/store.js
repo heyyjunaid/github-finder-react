@@ -1,8 +1,8 @@
 // src/app/store.js
 import { configureStore } from "@reduxjs/toolkit";
 
-import githubReducer from "./modules/Github";
-import alertReducer from "./modules/Alert";
+import githubReducer from "./slices/github";
+import alertReducer from "./slices/alert";
 
 const store = configureStore({
   reducer: {

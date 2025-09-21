@@ -1,12 +1,8 @@
-import { searchUsers } from "../../context/github/GithubActions";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  setLoading,
-  setSearchText,
-  setUsers,
-} from "../../Store/modules/Github";
-import { setAlert } from "../../Store/modules/Alert";
+import { setLoading, setSearchText, setUsers } from "../../Store/slices/github";
+import { setAlert } from "../../Store/slices/alert";
+import { searchUsers } from "../../services";
 
 const UserSearch = () => {
   const [text, setText] = useState(
@@ -20,9 +16,7 @@ const UserSearch = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log("3###");
     if (text.trim() === "") {
-      console.log("came here ");
       dispatch(setAlert({ msg: "Please enter something", type: "error" }));
       setTimeout(() => {
         dispatch(setAlert({ msg: "", type: "" }));

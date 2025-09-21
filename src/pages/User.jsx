@@ -1,4 +1,4 @@
-import { useEffect, useContext } from "react";
+import { useEffect } from "react";
 import { useParams } from "react-router-dom";
 import Spinner from "../components/layout/Spinner";
 import {
@@ -10,13 +10,13 @@ import {
 } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import RepoList from "../components/repos/RepoList";
-import { getUser, getUserRepo } from "../context/github/GithubActions";
 import { useDispatch, useSelector } from "react-redux";
 import {
   setLoading,
   setUserData,
   setUserRepoData,
-} from "../Store/modules/Github";
+} from "../Store/slices/github";
+import { getUser, getUserRepo } from "../services";
 const User = () => {
   const { user, loading, repos } = useSelector((state) => state?.github);
   const dispatch = useDispatch();
