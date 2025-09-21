@@ -13,4 +13,7 @@ export default defineConfig({
   optimizeDeps: {
     include: ["@reduxjs/toolkit"],
   },
+  server: {
+    historyApiFallback: true, // 👈 ensures index.html is served for unknown routes
+  },
 });
