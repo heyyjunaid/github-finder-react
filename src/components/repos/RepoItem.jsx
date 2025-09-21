@@ -1,6 +1,6 @@
 import PropTypes from "prop-types";
-
 import { FaEye, FaInfo, FaLink, FaStar, FaUtensils } from "react-icons/fa";
+
 const RepoItem = ({ repo }) => {
   const {
     name,
@@ -13,26 +13,26 @@ const RepoItem = ({ repo }) => {
   } = repo;
 
   return (
-    <div className="mb-2 rounded-md card bg-gray-600  hover:bg-gray-700">
+    <div className="mb-2 rounded-md card bg-base-200 hover:bg-base-300 transition-colors duration-300">
       <div className="card-body">
         <h3 className="mb-2 text-xl font-semibold">
-          <a href={html_url}>
+          <a href={html_url} className="hover:underline">
             <FaLink className="inline mr-1" /> {name}
           </a>
         </h3>
         <p className="mb-3">{description}</p>
-        <div>
-          <div className="mr-2 badge badge-info badge-lg">
-            <FaEye className="mr-2" /> {watchers_count}
+        <div className="flex flex-wrap gap-2">
+          <div className="badge badge-info badge-lg flex items-center gap-1">
+            <FaEye /> {watchers_count}
           </div>
-          <div className="mr-2 badge badge-success badge-lg">
-            <FaStar className="mr-2" /> {stargazers_count}
+          <div className="badge badge-success badge-lg flex items-center gap-1">
+            <FaStar /> {stargazers_count}
           </div>
-          <div className="mr-2 badge badge-error badge-lg">
-            <FaInfo className="mr-2" /> {open_issues}
+          <div className="badge badge-error badge-lg flex items-center gap-1">
+            <FaInfo /> {open_issues}
           </div>
-          <div className="mr-2 badge badge-warning badge-lg">
-            <FaUtensils className="mr-2" /> {forks}
+          <div className="badge badge-warning badge-lg flex items-center gap-1">
+            <FaUtensils /> {forks}
           </div>
         </div>
       </div>
@@ -43,4 +43,5 @@ const RepoItem = ({ repo }) => {
 RepoItem.propTypes = {
   repo: PropTypes.object.isRequired,
 };
+
 export default RepoItem;
